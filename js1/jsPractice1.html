@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <body>
+    <canvas id="can"></canvas>
+  <script>
+
+    // ブロック1つのサイズ(ピクセル)
+    const block_size = 30;
+
+    // テトロミノのサイズ
+    const tetro_size = 4;
+
+   let can = document.getElementById("can");
+   let con = can.getContext("2d");
+
+   
+
+   let tetro = [
+    [0,0,0,0],
+    [1,1,0,0],
+    [0,1,1,0],
+    [0,0,0,0]
+   ];
+
+    //  テトロミノの座標
+    let tetro_x = 0;
+    let tetro_y = 0;
+
+    drawTetro();
+
+    function drawTetro (){
+
+      for (let y=0; y<tetro_size; y++) {
+        for (let x=0; x<tetro_size; x++) {
+
+          if (tetro[y][x] == 1) {
+            let px = (tetro_x + x) * block_size;
+            let py = (tetro_y + y) * block_size;
+
+            con.fillStyle = "red";
+            con.fillRect(px,py, block_size,block_size);
+            con.strokeRect(px,py, block_size,block_size);
+            con.strokeStyle="black";
+          }
+        }
+      }
+    }
+
+    document.onkeydown = function(e) {
+      switch(e.keyCode) {
+        case 37: //左
+          tetro_x --;
+          break;
+        case 38: //上
+          tetro_y --;
+          break;
+        case 39: //右
+          tetro_x ++;
+          break;
+        case 40: //下
+          tetro_y ++;
+          break;
+        case 32: //スペース
+          break;
+
+      }
+      drawTetro();
+    }
+
+    
+
+  </script>
+  </body>
+</html>
